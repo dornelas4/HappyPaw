@@ -12,4 +12,8 @@
     <string name="btn_label_set_timer">Set Timer</string>
     <string name="btn_label_feed_now">Feed Now</string>
 
+    <string name="label_meal_per_day">Meals Per Day</string>
+    <!--<string name="label_meal_per_day">Meals Per Day</string>-->
+    <!--<string name="label_meal_per_day">Meals Per Day</string>-->
+    <!--<string name="label_meal_per_day">Meals Per Day</string>-->
 </resources>
