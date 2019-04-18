@@ -26,8 +26,7 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(new HomeFragment());
                     return true;
                 case R.id.navigation_notifications:
-                    Intent intent = new Intent(HomeActivity.this,MapsActivity.class);
-                    startActivity(intent);
+                    loadFragment(new LocationFragment());
                     return true;
             }
             return false;
