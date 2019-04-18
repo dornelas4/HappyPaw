@@ -5,11 +5,11 @@ from flask_restplus import Api, Resource, fields
 flask_app = Flask(__name__)
 app = Api(app=flask_app)
 
+container_percentage = 55.5
+
 name_space = app.namespace('main', description='Main APIs')
-
-
 schedule = app.namespace('schedule', description='Main APIs')
-
+food_container = app.namespace('container', description='Main APIs')
 list1 = []
 
 model = app.model('Name Model', 
@@ -47,6 +47,12 @@ class Schedule(Resource):
             "status": model["mealPerDay"]
         }
 
+@food_container.route("/")
+class FoodContainer(Resource):
+    def get(self):
+        return {
+            "container_percentage": container_percentage
+        }
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

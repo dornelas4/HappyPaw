@@ -18,10 +18,9 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
+import com.github.lzyzsd.circleprogress.ArcProgress;
+
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.Calendar;
 
 
 /**
@@ -30,21 +29,23 @@ import java.util.Calendar;
  */
 public class HomeFragment extends Fragment {
     SchedulerClient testApi;
+    ArcProgress foodContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         testApi = new SchedulerClient();
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
 
+        foodContainer = view.findViewById(R.id.arc_progress);
+        foodContainer.setProgress(64);
         Button setTimerBtn =  view.findViewById(R.id.btn_set_timer);
 
         setTimerBtn.setOnClickListener((v) -> {
-
             DialogFragment newFragment = new TimePickerFragment();
             newFragment.show(getFragmentManager(), "timePicker");
-
         });
 
 
