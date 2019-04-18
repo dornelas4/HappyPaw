@@ -1,5 +1,6 @@
 package cs4330.cs.utep.edu.happypaw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,7 +26,8 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(new HomeFragment());
                     return true;
                 case R.id.navigation_notifications:
-                    loadFragment(new HomeFragment());
+                    Intent intent = new Intent(HomeActivity.this,MapsActivity.class);
+                    startActivity(intent);
                     return true;
             }
             return false;
