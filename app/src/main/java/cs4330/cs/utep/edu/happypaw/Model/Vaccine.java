@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Model;
 
 
 import java.util.ArrayList;

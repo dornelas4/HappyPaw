@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Model;
 
 public class Trip {
     private int ID;

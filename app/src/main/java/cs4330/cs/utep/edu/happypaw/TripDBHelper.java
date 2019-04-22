@@ -8,12 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
+import cs4330.cs.utep.edu.happypaw.Model.Trip;
 
 /**
  * Created by Daniel Ornelas on 6/13/2017.

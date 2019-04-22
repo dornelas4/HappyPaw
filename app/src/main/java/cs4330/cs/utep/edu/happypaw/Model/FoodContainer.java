@@ -1,6 +1,6 @@
 package cs4330.cs.utep.edu.happypaw.Model;
 
-public class Container {
+public class FoodContainer {
     private int ID;
     private double capacity;
     private int fillPercentage;

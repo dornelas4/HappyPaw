@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 
 import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
+
+import cs4330.cs.utep.edu.happypaw.Model.Vaccine;
 
 /**
  * A fragment representing a list of Items.
