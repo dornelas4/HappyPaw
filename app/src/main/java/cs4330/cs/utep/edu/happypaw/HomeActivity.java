@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(new HomeFragment());
                     return true;
                 case R.id.navigation_dashboard:
-                    loadFragment(new HomeFragment());
+                    loadFragment(new ProfileFragment());
                     return true;
                 case R.id.navigation_notifications:
                     loadFragment(new LocationFragment());
