@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import cs4330.cs.utep.edu.happypaw.Fragment.HomeFragment;
 import cs4330.cs.utep.edu.happypaw.Fragment.LocationFragment;
 import cs4330.cs.utep.edu.happypaw.Fragment.ProfileFragment;
+import cs4330.cs.utep.edu.happypaw.R;
 
 public class HomeActivity extends AppCompatActivity {
 

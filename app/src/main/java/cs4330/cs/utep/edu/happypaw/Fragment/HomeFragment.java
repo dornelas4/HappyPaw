@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment {
         timerThread.cancel();
         timerThread.purge();
     }
-    
+
     public static class TimePickerFragment extends DialogFragment {
 
         HomeFragment ctx;
