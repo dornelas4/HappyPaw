@@ -30,7 +30,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        ctx = rootView.getContext();
+        ctx = getActivity();
         Button btn = rootView.findViewById(R.id.button1);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
