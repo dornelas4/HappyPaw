@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Fragment;
 
 
 import android.content.Context;
@@ -13,7 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toolbar;
 
-import com.google.android.gms.maps.SupportMapFragment;
+import cs4330.cs.utep.edu.happypaw.PushNotificationHandler;
+import cs4330.cs.utep.edu.happypaw.R;
 
 
 public class ProfileFragment extends Fragment {

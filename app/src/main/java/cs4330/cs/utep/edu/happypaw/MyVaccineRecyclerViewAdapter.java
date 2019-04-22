@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cs4330.cs.utep.edu.happypaw.Model.Vaccine;
-import cs4330.cs.utep.edu.happypaw.VaccineFragment.OnListFragmentInteractionListener;
+import cs4330.cs.utep.edu.happypaw.Fragment.VaccineFragment.OnListFragmentInteractionListener;
 
 
 import java.util.List;

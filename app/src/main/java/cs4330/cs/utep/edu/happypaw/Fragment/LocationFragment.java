@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
+
+import cs4330.cs.utep.edu.happypaw.R;
 
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {

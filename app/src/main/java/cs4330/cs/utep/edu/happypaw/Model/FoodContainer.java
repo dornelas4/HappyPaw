@@ -1,11 +1,23 @@
 package cs4330.cs.utep.edu.happypaw.Model;
 
-public class FoodContainer {
-    private int ID;
-    private double capacity;
-    private int fillPercentage;
 
-    public int getFillPercentage() {
-        return fillPercentage;
+import com.google.gson.annotations.SerializedName;
+
+
+public class FoodContainer {
+    @SerializedName("id")
+    private int ID;
+
+    @SerializedName("capacity")
+    private int capacity;
+
+    @SerializedName("percentage")
+    private int percentage;
+
+    public int getPercentage() {
+        return percentage;
+    }
+    public int getCapacity() {
+        return capacity;
     }
 }

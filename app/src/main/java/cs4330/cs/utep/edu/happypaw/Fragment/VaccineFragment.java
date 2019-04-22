@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.Model.Vaccine;
+import cs4330.cs.utep.edu.happypaw.MyVaccineRecyclerViewAdapter;
+import cs4330.cs.utep.edu.happypaw.R;
 
 /**
  * A fragment representing a list of Items.

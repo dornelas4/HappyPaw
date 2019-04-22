@@ -7,17 +7,20 @@ public class FeedTimer {
     private long endTime;
 
     /** Create a nesw timer. Initially it isn't running. */
-    public FeedTimer(long endTime) {
-        this.endTime = endTime;
+    public FeedTimer() {
     }
 
+    public void start(long endTime){
+        this.endTime = endTime;
+    }
     /**
      * Is this timer running?
      *
      * @return true if this timer is running; false otherwise.
      */
     public boolean isRunning() {
-        return System.currentTimeMillis() > endTime;
+        long current = System.currentTimeMillis();
+        return System.currentTimeMillis() < endTime;
     }
 
     /**
