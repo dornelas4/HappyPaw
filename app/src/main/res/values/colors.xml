@@ -10,4 +10,8 @@
     <color name="red">#dd5048</color>
     <color name="orange">#dd7548</color>
 
+    <color name="colorSecondary">#1C223C</color>
+    <color name="colorSecondaryDark">#1C223C</color>
+    <color name="colorSecondaryAccent">#FF4081</color>
+
 </resources>
