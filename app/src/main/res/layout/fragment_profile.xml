@@ -6,18 +6,24 @@
     android:layout_height="match_parent"
   >
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView
             android:id="@+id/profile_picture_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="230dp"
 
             android:layout_margin="8dp"
-            app:cardBackgroundColor="#e98f8a"
-            card_view:cardCornerRadius="4dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,6 +61,7 @@
                         android:fontFamily="sans-serif"
                         android:text="My Dog Profile Page"
 
+                        android:textColor="@color/white"
                         android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -63,14 +70,34 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView2"
                         app:layout_constraintVertical_bias="0.0" />
 
-                    <Button
-                        android:id="@+id/button1"
+                    <TextView
+                        android:id="@+id/dog_breed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        card_view:layout_constraintBottom_toBottomOf="parent"
-                        card_view:layout_constraintEnd_toEndOf="parent" />
+                        android:text="Dog Breed"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <TextView
+                        android:id="@+id/dog_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Birthday"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dog_breed" />
+
                 </android.support.constraint.ConstraintLayout>
 
             </LinearLayout>
@@ -80,31 +107,45 @@
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/vaccines_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="237dp"
             android:layout_gravity="center"
 
             android:layout_margin="8dp"
-            app:cardBackgroundColor="#e98f8a"
-            card_view:cardCornerRadius="4dp">
-            <FrameLayout
-                android:id="@+id/child_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/other_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
 
-            android:layout_margin="8dp"
-            app:cardBackgroundColor="#e98f8a"
-            card_view:cardCornerRadius="4dp">
-            <FrameLayout
-                android:id="@+id/second_container"
+            card_view:cardBackgroundColor="@android:color/darker_gray"
+            card_view:cardCornerRadius="4dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/profile_picture_card"
+            card_view:layout_constraintVertical_bias="0.051">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/visit_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Recent Vet Visits" />
+                <FrameLayout
+                    android:id="@+id/child_fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </android.support.v7.widget.CardView>
-    </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

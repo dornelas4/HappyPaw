@@ -49,6 +49,7 @@ public class VaccineFragment extends Fragment {
             Vaccine v = new Vaccine("Hello", d);
             Vaccine.ITEMS.add(v);
             recyclerView.setAdapter(new MyVaccineRecyclerViewAdapter(Vaccine.ITEMS, mListener));
+            
         }
         return view;
     }

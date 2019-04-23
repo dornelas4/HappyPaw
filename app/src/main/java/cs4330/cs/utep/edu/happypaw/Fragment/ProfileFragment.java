@@ -31,14 +31,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ctx = getActivity();
-        Button btn = rootView.findViewById(R.id.button1);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PushNotificationHandler pnf = new PushNotificationHandler(ctx);
-                pnf.showNotifications("Test","Message");
-            }
-        });
+
         return rootView;
     }
 
@@ -52,9 +45,7 @@ public class ProfileFragment extends Fragment {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.child_fragment_container,childFragment).commit();
 
-        Fragment second = new VaccineFragment();
-        transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.second_container,second).commit();
+
     }
 
 
