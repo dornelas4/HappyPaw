@@ -12,6 +12,10 @@ public class Trip {
 
     public Trip(){}
 
+    public Trip(int id){
+        this.ID = id;
+    }
+
     public int getID() {
         return ID;
     }
