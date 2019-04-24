@@ -65,6 +65,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.mapContainer, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
+        setHasOptionsMenu(true);
         return rootView;
     }
 

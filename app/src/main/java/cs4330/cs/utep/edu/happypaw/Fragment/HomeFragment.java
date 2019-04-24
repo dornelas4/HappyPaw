@@ -27,6 +27,7 @@ import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.SchedulerClient;
+import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 
 /**
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment {
                             setUpNextFeedingTextView(getView());
                             return;
                         }
-                        nextFeeding.setText( formatElapsedTime(timer.elapsedTime()));
+                        nextFeeding.setText( TimeUtil.formatElapsedTime(timer.elapsedTime()));
                     }
                 });
             }
@@ -178,9 +179,12 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
+        if (timerThread != null){
+            timerThread.cancel();
+            timerThread.purge();
+        }
         Log.d("Lifecycle", "Destroy");
-        timerThread.cancel();
-        timerThread.purge();
+
     }
 
     public static class TimePickerFragment extends DialogFragment {
