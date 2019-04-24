@@ -10,6 +10,7 @@ public class Dog<T> {
     private Date birthday;
     private String gender;
     private String breed;
+    private int age;
 
     // TODO create Trip and vaccine classes
     private ArrayList<T> trip;
