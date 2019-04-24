@@ -11,5 +11,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".Fragment.VaccineFragment"
-
     tools:listitem="@layout/fragment_vaccine" />

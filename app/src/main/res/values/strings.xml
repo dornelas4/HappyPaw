@@ -90,6 +90,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="text_view_next_feeding">Next Feeding:</string>
     <string name="text_view_timer_default">--:--:--</string>
+    <string name="PetVisitListLabel">Recent Vet Visits</string>
     <!--<string name="label_meal_per_day">Meals Per Day</string>-->
     <!--<string name="label_meal_per_day">Meals Per Day</string>-->
 </resources>
