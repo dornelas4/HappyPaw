@@ -46,10 +46,14 @@ public class VaccineFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             Date d = new Date();
-            Vaccine v = new Vaccine("Hello", d);
+            Vaccine v = new Vaccine("Rabies vaccine", d);
+            Vaccine vv = new Vaccine("Dog bath",d);
+            Vaccine vvv = new Vaccine("Haircut",d);
             Vaccine.ITEMS.add(v);
+            Vaccine.ITEMS.add(vv);
+            Vaccine.ITEMS.add(vvv);
             recyclerView.setAdapter(new MyVaccineRecyclerViewAdapter(Vaccine.ITEMS, mListener));
-            
+
         }
         return view;
     }
