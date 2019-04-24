@@ -3,6 +3,7 @@ package cs4330.cs.utep.edu.happypaw.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -19,11 +20,6 @@ import cs4330.cs.utep.edu.happypaw.R;
 
 public class ProfileFragment extends Fragment {
 
-    Toolbar toolbar;
-    private boolean isChecked = false;
-    ImageButton like,back;
-    Button poke;
-    ImageView facebook,instagram,follow;
     Context ctx;
 
     @Override
@@ -32,23 +28,13 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ctx = getActivity();
 
+        TabLayout tabLayout1 = rootView.findViewById(R.id.tablayout1);
+
+
+
+        tabLayout1.addTab(tabLayout1.newTab().setText("Trips"));
+        tabLayout1.addTab(tabLayout1.newTab().setText("Vet Visits"));
+        
         return rootView;
     }
-
-    @Override
-    public void onViewCreated(View view,Bundle savedInstanceState){
-        insertNestedFragment();
-    }
-
-    public void insertNestedFragment(){
-        Fragment childFragment = new VaccineFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.child_fragment_container,childFragment).commit();
-
-
-    }
-
-
-
-
 }

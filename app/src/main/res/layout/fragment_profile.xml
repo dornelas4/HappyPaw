@@ -1,149 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="#ffffff">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/profile_picture_card"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@color/colorPrimaryDark"
+                android:scaleType="fitXY" />
+
+            <!--<include layout="@layout/toolbar_profile"/>-->
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/nyimg2"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dog_profile"
+                    app:riv_corner_radius="30dp"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="true" />
+
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="4dp"
-            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Zeus"
+                android:textColor="#1c252a"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:src="@drawable/ic_male_96dp" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.02"
-                        app:srcCompat="@drawable/dog_profile" />
-
-                        <TextView
-                            android:id="@+id/dog_name_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif"
-                            android:text="Zeus"
-
-                            android:textColor="@color/white"
-                            android:textSize="28sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.502"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/dog_name_label"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.706"
-                        app:srcCompat="@drawable/ic_male_96dp" />
+        </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/dog_breed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Husky"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dog_name_label" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/dog_birthday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="11/03/2017"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dog_breed" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_age_white" />
 
-                </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1y"
+                android:textColor="#b7c4cb"
+                android:textSize="17sp" />
 
-            </LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_cake_white" />
 
-        </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09/20"
+                android:textColor="#b7c4cb"
+                android:textSize="17sp" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/vet_visits_card"
-        android:layout_width="match_parent"
-        app:cardCornerRadius="4dp"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_breed_white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/visit_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/red"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:text="@string/PetVisitListLabel" />
-                <FrameLayout
-                    android:id="@+id/child_fragment_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Husky"
+                android:textColor="#b7c4cb"
+                android:textSize="17sp" />
 
 
-</LinearLayout>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="#d4dce1" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#0091ea"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#1c252a"
+            app:tabTextAppearance="@style/MyMenuTextAppearance1"
+            app:tabTextColor="#b7c4cb" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="#d4dce1" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager1"
+            android:layout_width="match_parent"
+            android:layout_height="390dp"
+            android:layout_marginBottom="40dp"
+            android:background="#f5f5f5" />
+
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center"-->
+        <!--android:background="#ffffff"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:layout_alignParentBottom="true">-->
+
+        <!--<customfonts.MyTextView_Roboto_Regular-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:text="loading"-->
+            <!--android:textColor="#b7c4cb"/>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="23dp"-->
+            <!--android:layout_height="23dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/loading"-->
+            <!--android:layout_marginRight="10dp"/>-->
+
+
+        <!--<customfonts.MyTextView_Roboto_Regular-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:text="content"-->
+            <!--android:textColor="#b7c4cb"/>-->
+
+
+    <!--</LinearLayout>-->
+
+</RelativeLayout>
