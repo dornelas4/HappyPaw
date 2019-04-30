@@ -16,6 +16,7 @@ import java.net.Proxy;
 
 import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
+import cs4330.cs.utep.edu.happypaw.Model.Token;
 
 
 public class SchedulerClient {
@@ -47,7 +48,6 @@ public class SchedulerClient {
         public E data;
     }
 
-
     /** JSON header **/
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -56,6 +56,9 @@ public class SchedulerClient {
 
     /** JSON response with type String **/
     private static final Type stringType = new TypeToken<JsonResponse<String>>(){}.getType();
+
+    /** JSON response with type String **/
+    private static final Type tokenType = new TypeToken<JsonResponse<Token>>(){}.getType();
 
     /** JSON response with type FoodContainer **/
     private static final Type scheduleType = new TypeToken<JsonResponse<Schedule>>(){}.getType();
@@ -75,6 +78,9 @@ public class SchedulerClient {
     /** Path to the schedule api **/
     private static final String SCHEDULE_API_PATH = "/schedule/";
 
+    /** Path to the schedule api **/
+    private static final String LOGIN_API_PATH = "/login";
+
     /** Rest API url **/
     private static final String URL = "http://10.0.2.2:5000/api";
 
@@ -89,6 +95,35 @@ public class SchedulerClient {
     /** Sets authenticator   **/
     public SchedulerClient(){
 
+    }
+
+    public enum REQUEST_TYPE{
+        GET, POST
+    }
+
+    public Response genRequest(String url, String json, REQUEST_TYPE type) throws IOException {
+
+        Request.Builder request = new Request.Builder()
+                .url(url)
+                .addHeader(AUTHORIZATION_HEADER, auth);
+
+        switch(type){
+            case POST:
+                RequestBody body = RequestBody.create(JSON, json);
+                request.post(body);
+                break;
+            case GET:
+                request.get();
+                break;
+        }
+
+        return client.newCall(request.build()).execute();
+    }
+
+    public Response genRequest(String url, REQUEST_TYPE type) throws Exception {
+        if (type != REQUEST_TYPE.GET)
+            throw new Exception("Please provide appropriate request type");
+        return genRequest(url, "", type);
     }
 
     /** Performs a post request when provided with a url and a json string **/
@@ -114,28 +149,11 @@ public class SchedulerClient {
         return client.newCall(request).execute();
     }
 
-    /**  **/
-    public void getProgress(SchedulerListener<FoodContainer> listener){
-        new Thread(() -> {
-            try {
-                Response response = doGetRequest(URL + CONTAINER_API_PATH);
-                if (response.code() == 404)
-                    listener.onError("404 Not Found");
-
-                String jsonString = response.body().string();
-                JsonResponse<FoodContainer> result = g.fromJson(jsonString, foodCotainerType);
-
-                if (result.status.equals(STATUS_SUCCESS))
-                    listener.onSuccess(result.data);
-                else
-                    listener.onError(result.message);
-
-            } catch (IOException e) {
-                listener.onError("Could not communicate with the server");
-            }
-        }).start();
-    }
-
+    /**
+     * Sends post request to the Scheduler APi to set Schedule
+     * @param json - json to be processed in the server
+     * @param listener - callback functions
+     */
     public void setSchedule(String json, SchedulerListener<String> listener){
         new Thread(() -> {
             try {
@@ -164,6 +182,44 @@ public class SchedulerClient {
                     listener.onError("404 Not Found");
                 String jsonString = response.body().string();
                 JsonResponse<Schedule> result = g.fromJson(jsonString, scheduleType);
+
+                if (result.status.equals(STATUS_SUCCESS))
+                    listener.onSuccess(result.data);
+                else
+                    listener.onError(result.message);
+            } catch (IOException e) {
+                listener.onError("Could not communicate with the server");
+            }
+        }).start();
+    }
+
+    public void getProgress(SchedulerListener<FoodContainer> listener){
+        new Thread(() -> {
+            try {
+                Response response = doGetRequest(URL + CONTAINER_API_PATH);
+                if (response.code() == 404)
+                    listener.onError("404 Not Found");
+                String jsonString = response.body().string();
+                JsonResponse<FoodContainer> result = g.fromJson(jsonString, foodCotainerType);
+
+                if (result.status.equals(STATUS_SUCCESS))
+                    listener.onSuccess(result.data);
+                else
+                    listener.onError(result.message);
+            } catch (IOException e) {
+                listener.onError("Could not communicate with the server");
+            }
+        }).start();
+    }
+
+    public void login(String json, SchedulerListener<Token> listener){
+        new Thread(() -> {
+            try {
+                Response response = genRequest(URL + LOGIN_API_PATH, json, REQUEST_TYPE.POST);
+                if (response.code() == 404)
+                    listener.onError("404 Not Found");
+                String jsonString = response.body().string();
+                JsonResponse<Token> result = g.fromJson(jsonString, tokenType);
 
                 if (result.status.equals(STATUS_SUCCESS))
                     listener.onSuccess(result.data);

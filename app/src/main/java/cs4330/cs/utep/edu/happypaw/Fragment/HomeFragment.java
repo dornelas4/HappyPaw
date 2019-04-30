@@ -3,6 +3,7 @@ package cs4330.cs.utep.edu.happypaw.Fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -22,6 +23,7 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cs4330.cs.utep.edu.happypaw.LoginActivity;
 import cs4330.cs.utep.edu.happypaw.Model.FeedTimer;
 import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
@@ -41,25 +43,24 @@ public class HomeFragment extends Fragment {
     ArcProgress foodContainer;
     Timer timerThread;
     FeedTimer timer;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         schduler = new SchedulerClient();
-
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         timer = new FeedTimer();
         setUpProgressBar(view);
 
         Button setTimerBtn =  view.findViewById(R.id.btn_set_timer);
 
         setTimerBtn.setOnClickListener((v) -> {
-            DialogFragment newFragment = new TimePickerFragment();
-            newFragment.setTargetFragment(this, 1);
-            newFragment.show(getFragmentManager(), "timePicker");
+//            DialogFragment newFragment = new TimePickerFragment();
+//            newFragment.setTargetFragment(this, 1);
+//            newFragment.show(getFragmentManager(), "timePicker");
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         });
 
         return view;
@@ -98,6 +99,7 @@ public class HomeFragment extends Fragment {
      * @param view - HomeFragment view to populate timer
      */
     public void setUpNextFeedingTextView(View view){
+
         schduler.getSchedule(new SchedulerClient.SchedulerListener<Schedule>() {
             @Override
             public void onSuccess(Schedule result) {
@@ -156,6 +158,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 showToastOnUiThread(result);
+                setUpNextFeedingTextView(view);
             }
 
             @Override
@@ -212,6 +215,8 @@ public class HomeFragment extends Fragment {
             NumberPicker times = view.findViewById(R.id.times);
 
             interval.setIs24HourView(true);
+            times.setMaxValue(5);
+            times.setMinValue(1);
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
