@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -15,6 +17,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -25,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.ServiceNotification;
+import cs4330.cs.utep.edu.happypaw.Services.BackgroundLocationService;
 import cs4330.cs.utep.edu.happypaw.Services.LocationTrackerService;
 import cs4330.cs.utep.edu.happypaw.TripDBHelper;
 
@@ -54,6 +59,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static final String ACTION_STOP = "STOP_ACTION";
     public static final String ACTION_FROM_NOTIFICATION = "isFromNotification";
     private String action;
+    private Location utep;
+    private ImageView tripControl;
+    private BackgroundLocationService gpsService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,40 +72,49 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.mapContainer, mMapFragment).commit();
+        tripControl = rootView.findViewById(R.id.trip_control);
+        tripControl.setOnClickListener(this::controlButtonClicked);
         mMapFragment.getMapAsync(this);
         setHasOptionsMenu(true);
         return rootView;
     }
 
+    public void controlButtonClicked(View view){
+        mIsServiceStarted = !mIsServiceStarted;
+        setControlButton();
+        if(mIsServiceStarted){
+            startUpdates();
+        }
+        else{
+            endTrip();
+        }
+    }
+    public void setControlButton(){
+        tripControl.setImageResource(mIsServiceStarted ? R.drawable.ic_pause_64dp : R.drawable.ic_record_64dp);
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-        LatLng test = new LatLng(31.767781, -106.503176);
+        tripControl.bringToFront();
+        setControlButton();
         this.googleMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.addMarker(new MarkerOptions()
-                .position(test)
-                .title("title"));
+//        googleMap.addMarker(new MarkerOptions()
+//                .position(test)
+//                .title("title"));
 
         boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
         if (!success) {
             Log.e("MapERROR", "Style parsing failed");
         }
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15));
+
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         googleMap.setMyLocationEnabled(true);
         setStartingLocation();
-        startUpdates();
+
 
     }
 
@@ -105,8 +122,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if (!mIsServiceStarted) {
             mIsServiceStarted = true;
 
-            OnGoingLocationNotification(getActivity());
-            getActivity().startService(new Intent(getActivity(), LocationTrackerService.class));
+//            OnGoingLocationNotification(getActivity());
+            Intent intent = new Intent(this.getActivity().getApplication(),BackgroundLocationService.class);
+            this.getActivity().getApplication().startService(intent);
+            this.getActivity().getApplication().bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
+            gpsService.startTracking();
+
         }
     }
 
@@ -118,8 +139,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if (mIsServiceStarted) {
             mIsServiceStarted = false;
 
-            cancelNotification(getActivity(), notifID);
-            getActivity().stopService(new Intent(getActivity(), LocationTrackerService.class));
+            //cancelNotification(getActivity(), notifID);
+            gpsService.stopTracking();
+            //getActivity().stopService(new Intent(getActivity(), LocationTrackerService.class));
         }
     }
 
@@ -154,8 +176,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             double lon = myLoc.getLongitude();
             LatLng latLng = new LatLng(lat, lon);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         }
+
     }
 
     @Override
@@ -175,13 +198,30 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         TripDBHelper dbHandler = new TripDBHelper(getActivity());
         int currTripID = dbHandler.getCurrentTripID();
 
+
 //
 //        Intent intent = new Intent(getBaseContext(), MapSummary.class);
 //        intent.putExtra("tripID", currTripID);
 //        startActivity(intent);
     }
 
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            String c = name.getClassName();
+            if(c.endsWith("BackgroundLocationService")){
+                gpsService=((BackgroundLocationService.LocationServiceBinder) service).getService();
 
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            if(name.getClassName().equals("BackgroundLocationService")){
+                gpsService = null;
+            }
+        }
+    };
     /**
      * Method to generate OnGoingLocationNotification
      *

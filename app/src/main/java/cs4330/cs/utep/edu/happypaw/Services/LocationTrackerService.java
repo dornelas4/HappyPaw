@@ -1,7 +1,9 @@
 package cs4330.cs.utep.edu.happypaw.Services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.IBinder;
 
 
@@ -15,7 +17,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-
+import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,6 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import java.text.DateFormat;
@@ -76,7 +79,7 @@ public class LocationTrackerService extends Service implements
     int tripID;
     Trip currTrip;
     long currentTrip;
-
+    Context ctx = this;
 
     @Override
     public void onCreate() {
