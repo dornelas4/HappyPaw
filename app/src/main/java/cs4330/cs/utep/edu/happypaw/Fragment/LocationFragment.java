@@ -2,31 +2,20 @@ package cs4330.cs.utep.edu.happypaw.Fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,14 +32,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
-import java.util.ArrayList;
-
-import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
-import cs4330.cs.utep.edu.happypaw.Model.Trip;
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.ServiceNotification;
 import cs4330.cs.utep.edu.happypaw.Services.LocationMonitoringService;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
 
