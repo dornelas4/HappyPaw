@@ -1,21 +1,24 @@
 package cs4330.cs.utep.edu.happypaw.Fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -23,14 +26,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -38,12 +42,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
+import cs4330.cs.utep.edu.happypaw.Model.Trip;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.ServiceNotification;
-import cs4330.cs.utep.edu.happypaw.Services.BackgroundLocationService;
-import cs4330.cs.utep.edu.happypaw.Services.LocationTrackerService;
+import cs4330.cs.utep.edu.happypaw.Services.LocationMonitoringService;
 import cs4330.cs.utep.edu.happypaw.TripDBHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -52,16 +58,16 @@ import static android.content.Context.LOCATION_SERVICE;
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     MapView mMapView;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+
     private GoogleMap googleMap;
-    private boolean mIsServiceStarted = false;
-    private int notifID;
+    private boolean mIsServiceStarted = false;;
     public static final String EXTRA_NOTIFICATION_ID = "notification_id";
     public static final String ACTION_STOP = "STOP_ACTION";
     public static final String ACTION_FROM_NOTIFICATION = "isFromNotification";
     private String action;
-    private Location utep;
     private ImageView tripControl;
-    private BackgroundLocationService gpsService;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,38 +103,63 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         tripControl.bringToFront();
         setControlButton();
         this.googleMap = googleMap;
-
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//        googleMap.addMarker(new MarkerOptions()
-//                .position(test)
-//                .title("title"));
-
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style));
         if (!success) {
             Log.e("MapERROR", "Style parsing failed");
         }
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            Log.d("MAP","No location");
             return;
         }
         googleMap.setMyLocationEnabled(true);
         setStartingLocation();
 
 
+
     }
 
     public void startUpdates() {
-        if (!mIsServiceStarted) {
-            mIsServiceStarted = true;
+        step1();
 
-//            OnGoingLocationNotification(getActivity());
-            Intent intent = new Intent(this.getActivity().getApplication(),BackgroundLocationService.class);
-            this.getActivity().getApplication().startService(intent);
-            this.getActivity().getApplication().bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE);
-            gpsService.startTracking();
+    }
 
+    public void step1() {
+        if (isGooglePlayServicesAvailable()) {
+            step2(null);
+        } else {
+            Log.d("MAP", "No google play services");
         }
+    }
+
+    public Boolean step2(DialogInterface dialog){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(activeNetworkInfo == null || !activeNetworkInfo.isConnected()){
+            promptInternetConnect();
+            return false;
+        }
+        if(dialog != null){
+            dialog.dismiss();
+        }
+
+        if(checkPermissions()){
+            step3();
+        }
+        else{
+            requestPermissions();
+        }
+        return true;
+    }
+
+    public void step3(){
+            Intent intent = new Intent(getActivity(),LocationMonitoringService.class);
+            getActivity().startService(intent);
+
+
+
     }
 
     /**
@@ -136,13 +167,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * updates were not previously requested.
      */
     public void stopUpdates() {
-        if (mIsServiceStarted) {
-            mIsServiceStarted = false;
+        getActivity().stopService(new Intent(getActivity(), LocationMonitoringService.class));
 
-            //cancelNotification(getActivity(), notifID);
-            gpsService.stopTracking();
-            //getActivity().stopService(new Intent(getActivity(), LocationTrackerService.class));
-        }
     }
 
     public void setStartingLocation() {
@@ -192,87 +218,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         Drive mode off, go to summary view activity
      */
     public void endTrip() {
-
-
         stopUpdates();
-        TripDBHelper dbHandler = new TripDBHelper(getActivity());
-        int currTripID = dbHandler.getCurrentTripID();
+//        TripDBHelper dbHandler = new TripDBHelper(getActivity());
+//        int currTripID = dbHandler.getCurrentTripID();
+//        ArrayList<CustomLocation> j = dbHandler.getAllLocationsByTrip(currTripID);
+//        for(CustomLocation l : j){
+//            Log.i("TRIP","" + l.getLatitude());
+//        }
 
-
-//
-//        Intent intent = new Intent(getBaseContext(), MapSummary.class);
-//        intent.putExtra("tripID", currTripID);
-//        startActivity(intent);
-    }
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            String c = name.getClassName();
-            if(c.endsWith("BackgroundLocationService")){
-                gpsService=((BackgroundLocationService.LocationServiceBinder) service).getService();
-
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            if(name.getClassName().equals("BackgroundLocationService")){
-                gpsService = null;
-            }
-        }
-    };
-    /**
-     * Method to generate OnGoingLocationNotification
-     *
-     * @param mcontext
-     */
-    public static void OnGoingLocationNotification(Context mcontext) {
-        int mNotificationId;
-
-        mNotificationId = (int) System.currentTimeMillis();
-
-        //Broadcast receiver to handle the stop action
-        Intent mstopReceive = new Intent(mcontext, ServiceNotification.class);
-        mstopReceive.putExtra(EXTRA_NOTIFICATION_ID, mNotificationId);
-        mstopReceive.setAction(ACTION_STOP);
-        PendingIntent pendingIntentStopService = PendingIntent.getBroadcast(mcontext, (int) System.currentTimeMillis(), mstopReceive, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(mcontext)
-                        .setSound(alarmSound)
-                        .setSmallIcon(R.drawable.ic_cast_off_light)
-                        .setContentTitle("Location Service")
-                        .addAction(R.drawable.ic_cancel, "Stop Service", pendingIntentStopService)
-                        .setOngoing(true).setContentText("Running...");
-        mBuilder.setAutoCancel(false);
-
-        // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(mcontext, LocationFragment.class);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        resultIntent.setAction(ACTION_FROM_NOTIFICATION);
-        resultIntent.putExtra(EXTRA_NOTIFICATION_ID, mNotificationId);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(mcontext, (int) System.currentTimeMillis(), resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) mcontext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.cancel(mNotificationId);
-
-        Notification mNotification = mBuilder.build();
-        mNotification.defaults |= Notification.DEFAULT_VIBRATE;
-        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-
-        mNotificationManager.notify(mNotificationId, mNotification);
-
-    }
-
-    private void cancelNotification(Context mContext, int mnotinotifId) {
-        NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(mnotinotifId);
     }
 
 
@@ -282,15 +235,63 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         if (getActivity().getIntent().getAction() != null) {
             action = getActivity().getIntent().getAction();
-            notifID = getActivity().getIntent().getIntExtra(EXTRA_NOTIFICATION_ID, 0);
             if (action.equalsIgnoreCase(ACTION_FROM_NOTIFICATION)) {
                 mIsServiceStarted = true;
-
-
             }
         }
     }
 
+
+    public boolean isGooglePlayServicesAvailable(){
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(getActivity());
+        if(status != ConnectionResult.SUCCESS){
+            if(googleApiAvailability.isUserResolvableError(status)){
+                googleApiAvailability.getErrorDialog(getActivity(),status,2404).show();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public void promptInternetConnect(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("No internet");
+        builder.setMessage("Please connect to use");
+
+        String positiveText =  "Refresh";
+
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(step2(dialog)){
+                            if(checkPermissions()){
+                                step3();
+                            }
+                            else if(!checkPermissions()){
+                                requestPermissions();
+                            }
+                        }
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        //dialog.show();
+    }
+
+    private boolean checkPermissions(){
+        int permissionState1 = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionState2 = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        return permissionState1 == PackageManager.PERMISSION_GRANTED && permissionState2 == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions(){
+        ActivityCompat.requestPermissions(getActivity(),new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_PERMISSIONS_REQUEST_CODE
+        );
+    }
 
 
 }
