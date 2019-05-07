@@ -92,6 +92,7 @@
     <string name="text_view_timer_default">--:--:--</string>
     <string name="PetVisitListLabel">Recent Vet Visits</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_trip_summary">Map</string>
     <!--<string name="label_meal_per_day">Meals Per Day</string>-->
     <!--<string name="label_meal_per_day">Meals Per Day</string>-->
 </resources>
