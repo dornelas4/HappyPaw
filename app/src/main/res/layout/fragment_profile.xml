@@ -24,8 +24,6 @@
                 android:background="@color/colorPrimaryDark"
                 android:scaleType="fitXY" />
 
-            <!--<include layout="@layout/toolbar_profile"/>-->
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -139,7 +137,7 @@
             android:background="#d4dce1" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout1"
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
@@ -155,7 +153,7 @@
             android:background="#d4dce1" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager1"
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="390dp"
             android:layout_marginBottom="40dp"

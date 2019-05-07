@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailText;
     EditText passwordText;
     ImageView loginButton;
-//    TextView signupLink;
     SchedulerClient client;
 
     @Override

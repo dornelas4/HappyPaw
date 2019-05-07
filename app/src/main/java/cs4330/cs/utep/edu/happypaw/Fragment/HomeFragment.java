@@ -56,11 +56,9 @@ public class HomeFragment extends Fragment {
         Button setTimerBtn =  view.findViewById(R.id.btn_set_timer);
 
         setTimerBtn.setOnClickListener((v) -> {
-//            DialogFragment newFragment = new TimePickerFragment();
-//            newFragment.setTargetFragment(this, 1);
-//            newFragment.show(getFragmentManager(), "timePicker");
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+            DialogFragment newFragment = new TimePickerFragment();
+            newFragment.setTargetFragment(this, 1);
+            newFragment.show(getFragmentManager(), "timePicker");
         });
 
         return view;
