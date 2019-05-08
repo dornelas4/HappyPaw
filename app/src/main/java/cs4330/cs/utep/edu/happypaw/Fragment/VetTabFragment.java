@@ -24,10 +24,11 @@ import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.Adapter.VetVisitAdapter;
 import cs4330.cs.utep.edu.happypaw.R;
+import cs4330.cs.utep.edu.happypaw.Helper.TripTouchHelper;
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 
-public class VetTabFragment extends Fragment {
+public class VetTabFragment extends Fragment implements TripTouchHelper.RecyclerItemTouchHelperListener {
 
     Context ctx;
     VetVisitAdapter adapter;
@@ -127,11 +128,15 @@ public class VetTabFragment extends Fragment {
         switch(id){
             case R.id.action_add:
                 datePicker();
-//                showDialog();
                 break;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        adapter.deleteVetVisit(position);
     }
 }

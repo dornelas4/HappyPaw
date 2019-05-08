@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634468603590",
+    "firebase_url": "https://jovial-inkwell-238007.firebaseio.com",
+    "project_id": "jovial-inkwell-238007",
+    "storage_bucket": "jovial-inkwell-238007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634468603590:android:a5381b15695d6e53",
+        "android_client_info": {
+          "package_name": "cs4330.cs.utep.edu.happypaw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634468603590-ju992ev73khsqvgtoemdd0ls4eqbbrqs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cs4330.cs.utep.edu.happypaw",
+            "certificate_hash": "c46865c49a642165f3e8091ba3ba762bc7698ffe"
+          }
+        },
+        {
+          "client_id": "634468603590-mn9bb9b2jqno6aets3n9efh4h4j3ko68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbEqQgQ8ZOZEZxsNJp1ZcFzLH4YozKKYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634468603590-mn9bb9b2jqno6aets3n9efh4h4j3ko68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

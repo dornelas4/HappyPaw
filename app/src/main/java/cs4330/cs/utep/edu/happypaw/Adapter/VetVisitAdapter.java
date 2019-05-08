@@ -7,25 +7,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.VetVisitDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helper.VetVisitDBHelper;
 
 public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.ViewHolder>{
+    ArrayList<Integer> pos2id;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView reasonTextView;
         public TextView doctorPriceTextView;
         public TextView datePriceTextView;
+        public RelativeLayout viewBackground, viewForeground;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             reasonTextView = itemView.findViewById(R.id.vet_reason);
             doctorPriceTextView = itemView.findViewById(R.id.vet_doctor);
             datePriceTextView = itemView.findViewById(R.id.vet_date);
+
+            viewBackground = itemView.findViewById(R.id.vet_background);
+            viewForeground = itemView.findViewById(R.id.vet_foreground);
         }
     }
 
@@ -69,5 +77,11 @@ public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.V
     }
 
 
+    public void deleteVetVisit(int pos){
+        vetVisitDBHelper.deleteItem(pos2id.get(pos));
+        pos2id.remove(pos);
+        swapCursor(vetVisitDBHelper.allItems());
+        notifyDataSetChanged();
+    }
 
 }

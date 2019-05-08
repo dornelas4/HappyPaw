@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Helper;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -81,8 +81,12 @@ public class SchedulerClient {
     /** Path to the schedule api **/
     private static final String LOGIN_API_PATH = "/login";
 
+    private static final String FEED_API_PATH = "/feed";
+
+    private static final String REGISTER_TOKEN_API_PATH = "/token";
+
     /** Rest API url **/
-    private static final String URL = "http://10.0.2.2:5000/api";
+    private static final String URL = "http://172.19.152.1:5000/api";
 
     /** Google library to parse JSON  **/
     private static final Gson g = new Gson();
@@ -223,6 +227,44 @@ public class SchedulerClient {
 
                 if (result.status.equals(STATUS_SUCCESS))
                     listener.onSuccess(result.data);
+                else
+                    listener.onError(result.message);
+            } catch (IOException e) {
+                listener.onError("Could not communicate with the server");
+            }
+        }).start();
+    }
+
+    public void saveClientToken(String json, SchedulerListener<String> listener){
+        new Thread(() -> {
+            try {
+                Response response = genRequest(URL + REGISTER_TOKEN_API_PATH, json, REQUEST_TYPE.POST);
+                if (response.code() == 404)
+                    listener.onError("404 Not Found");
+                String jsonString = response.body().string();
+                JsonResponse<String> result = g.fromJson(jsonString, stringType);
+
+                if (result.status.equals(STATUS_SUCCESS))
+                    listener.onSuccess(result.message);
+                else
+                    listener.onError(result.message);
+            } catch (IOException e) {
+                listener.onError("Could not communicate with the server");
+            }
+        }).start();
+    }
+
+    public void feed(SchedulerListener<String> listener){
+        new Thread(() -> {
+            try {
+                Response response = doGetRequest(URL + FEED_API_PATH);
+                if (response.code() == 404)
+                    listener.onError("404 Not Found");
+                String jsonString = response.body().string();
+                JsonResponse<String> result = g.fromJson(jsonString, stringType);
+
+                if (result.status.equals(STATUS_SUCCESS))
+                    listener.onSuccess(result.message);
                 else
                     listener.onError(result.message);
             } catch (IOException e) {

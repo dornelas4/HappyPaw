@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +33,12 @@ public class ProfileFragment extends Fragment {
 
         TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(getActivity(), getChildFragmentManager());
         pager.setAdapter(adapter);
+        pager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
         tabLayout.addTab(tabLayout.newTab().setText("Trips"));
         tabLayout.addTab(tabLayout.newTab().setText("Vet Visits"));

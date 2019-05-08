@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Helper;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import cs4330.cs.utep.edu.happypaw.Activity.HomeActivity;
+import cs4330.cs.utep.edu.happypaw.R;
 
 public class PushNotificationHandler {
     Context ctx;

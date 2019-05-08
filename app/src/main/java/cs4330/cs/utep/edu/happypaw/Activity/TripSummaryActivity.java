@@ -4,13 +4,10 @@ package cs4330.cs.utep.edu.happypaw.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,17 +17,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.Model.Trip;
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helper.TripDBHelper;
 
 public class TripSummaryActivity extends FragmentActivity implements OnMapReadyCallback {
 

@@ -1,9 +1,9 @@
 package cs4330.cs.utep.edu.happypaw.Fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -23,12 +23,11 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cs4330.cs.utep.edu.happypaw.LoginActivity;
 import cs4330.cs.utep.edu.happypaw.Model.FeedTimer;
 import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.SchedulerClient;
+import cs4330.cs.utep.edu.happypaw.Helper.SchedulerClient;
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 
@@ -38,6 +37,7 @@ import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
  */
 public class HomeFragment extends Fragment {
     final static float ARC_BOTTOM_TEXT_SIZE = 35.0f;
+    final static String TAG = "HomeFragment";
 
     SchedulerClient schduler;
     ArcProgress foodContainer;
@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment {
         setUpProgressBar(view);
 
         Button setTimerBtn =  view.findViewById(R.id.btn_set_timer);
+        Button feedBtn = view.findViewById(R.id.btn_feed_now);
 
         setTimerBtn.setOnClickListener((v) -> {
             DialogFragment newFragment = new TimePickerFragment();
@@ -61,6 +62,21 @@ public class HomeFragment extends Fragment {
             newFragment.show(getFragmentManager(), "timePicker");
         });
 
+        feedBtn.setOnClickListener((v) -> {
+            SchedulerClient client = new SchedulerClient();
+            client.feed(new SchedulerClient.SchedulerListener<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.i(TAG, "Feed");
+                }
+
+                @Override
+                public void onError(String msg) {
+                    Log.i(TAG, "could not feed");
+
+                }
+            });
+        });
         return view;
     }
 
@@ -73,11 +89,11 @@ public class HomeFragment extends Fragment {
     public void setUpProgressBar(View view){
         foodContainer = view.findViewById(R.id.arc_progress);
         foodContainer.setBottomTextSize(ARC_BOTTOM_TEXT_SIZE);
-
+        Activity ctx = getActivity();
         schduler.getProgress(new SchedulerClient.SchedulerListener<FoodContainer>() {
             @Override
             public void onSuccess(FoodContainer result) {
-                getActivity().runOnUiThread(() -> {
+                ctx.runOnUiThread(() -> {
                     foodContainer.setProgress(result.getPercentage());
                     foodContainer.setBottomText("Capacity: "+result.getCapacity()+"L");
                 });

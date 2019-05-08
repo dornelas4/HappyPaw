@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Helper;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
@@ -6,16 +6,17 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import cs4330.cs.utep.edu.happypaw.Adapter.TripAdapter;
+import cs4330.cs.utep.edu.happypaw.Adapter.VetVisitAdapter;
 
-public class TripTouchHelper extends ItemTouchHelper.SimpleCallback {
+public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
     public interface RecyclerItemTouchHelperListener {
         void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position);
     }
 
-    private RecyclerItemTouchHelperListener listener;
+    private TripTouchHelper.RecyclerItemTouchHelperListener listener;
 
 
-    public TripTouchHelper(RecyclerItemTouchHelperListener listener) {
+    public VetVisitTouchHelper(TripTouchHelper.RecyclerItemTouchHelperListener listener) {
         super(0, ItemTouchHelper.LEFT);
         this.listener = listener;
     }

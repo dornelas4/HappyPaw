@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.Services.LocationMonitoringService;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helper.TripDBHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
 
