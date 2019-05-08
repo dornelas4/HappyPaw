@@ -32,8 +32,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
+import java.util.ArrayList;
+
+import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.Services.LocationMonitoringService;
+import cs4330.cs.utep.edu.happypaw.TripDBHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -140,9 +144,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void step3(){
             Intent intent = new Intent(getActivity(),LocationMonitoringService.class);
             getActivity().startService(intent);
-
-
-
     }
 
     /**
@@ -202,12 +203,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     public void endTrip() {
         stopUpdates();
-//        TripDBHelper dbHandler = new TripDBHelper(getActivity());
-//        int currTripID = dbHandler.getCurrentTripID();
-//        ArrayList<CustomLocation> j = dbHandler.getAllLocationsByTrip(currTripID);
-//        for(CustomLocation l : j){
-//            Log.i("TRIP","" + l.getLatitude());
-//        }
+        TripDBHelper dbHandler = new TripDBHelper(getActivity());
+        int currTripID = dbHandler.getCurrentTripID();
+        ArrayList<CustomLocation> j = dbHandler.getAllLocationsByTrip(currTripID);
+        for(CustomLocation l : j){
+            Log.i("TRIP","" + l.getLatitude());
+        }
 
     }
 

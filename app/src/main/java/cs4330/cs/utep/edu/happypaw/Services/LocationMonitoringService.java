@@ -108,7 +108,7 @@ public class LocationMonitoringService extends Service implements GoogleApiClien
 
     }
     public void addLocationtoDatabase(Location location) {
-
+        
         if (mCurrentLocation == null) {
             mCurrentLocation = location;
             CustomLocation loc = new CustomLocation(location.getLatitude(), location.getLongitude());

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import cs4330.cs.utep.edu.happypaw.Fragment.TripFragment;
+import cs4330.cs.utep.edu.happypaw.Fragment.TripTabFragment;
 import cs4330.cs.utep.edu.happypaw.Fragment.VetTabFragment;
 import cs4330.cs.utep.edu.happypaw.R;
 
@@ -24,7 +24,7 @@ public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0)
-            return new TripFragment();
+            return new TripTabFragment();
         else
             return new VetTabFragment();
     }

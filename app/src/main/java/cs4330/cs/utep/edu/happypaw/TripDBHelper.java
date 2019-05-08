@@ -33,7 +33,7 @@ public class TripDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_TRIP_LOCATIONS = "trip_locations";
 
     //Common column names
-    private static final String KEY_ID = "_id";
+    public static final String KEY_ID = "_id";
 
     //Locations table - columns
     private static final String COLUMN_LATITUDE = "latitude";
@@ -41,8 +41,8 @@ public class TripDBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SPEED = "speed";
 
     //Trip table column names
-    private static final String COLUMN_START_DATE = "startDate";
-    private static final String COLUMN_END_DATE = "endDate";
+    public static final String COLUMN_START_DATE = "startDate";
+    public static final String COLUMN_END_DATE = "endDate";
     private static final String COLUMN_TRIP_NAME = "tripName";
     //trip locations table - columns
     private static final String KEY_LOCATIONS_ID = "locations_id";
@@ -290,14 +290,14 @@ public class TripDBHelper extends SQLiteOpenHelper {
         Deleting a trip
         THis will also delete all locations under the trip
      */
-    public void deleteTrip(Trip trip, boolean should_delete_all_trip_locations) {
+    public void deleteTrip(int id, boolean should_delete_all_trip_locations) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // before deleting trip
         // check if locations under this trip should also be deleted
         if (should_delete_all_trip_locations) {
             // get all locations under this trip
-            ArrayList<CustomLocation> allLocations = getAllLocationsByTrip(trip.getID());
+            ArrayList<CustomLocation> allLocations = getAllLocationsByTrip(id);
 
             // delete all todos
             for (CustomLocation loc : allLocations) {
@@ -308,7 +308,7 @@ public class TripDBHelper extends SQLiteOpenHelper {
 
         // now delete the tag
         db.delete(TABLE_TRIPS, KEY_ID + " = ?",
-                new String[]{String.valueOf(trip.getID())});
+                new String[]{String.valueOf(id)});
     }
 
     //Assign a trip to location

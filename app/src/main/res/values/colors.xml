@@ -14,5 +14,5 @@
     <color name="colorSecondaryDark">#1C223C</color>
     <color name="colorSecondaryAccent">#FF4081</color>
     <color name="light_red">#e98f8a</color>
-
+    <color name="text_color">#535353</color>
 </resources>

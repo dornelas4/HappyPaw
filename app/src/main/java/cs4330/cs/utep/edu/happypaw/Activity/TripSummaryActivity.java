@@ -91,12 +91,12 @@ public class TripSummaryActivity extends FragmentActivity implements OnMapReadyC
         mMap = googleMap;
         double meterToMile = 2.24;
         TripDBHelper dbHandler = new TripDBHelper(this);
-        int currentTripID = this.tripID;
-        trip = dbHandler.getAllLocationsByTrip(currentTripID);
 
+        trip = dbHandler.getAllLocationsByTrip(tripID);
         allTrips = dbHandler.getAllTrips();
+
         for (Trip t : allTrips) {
-            if (t.getID() == currentTripID) {
+            if (t.getID() == tripID) {
                 date = t.getTripDate();
             }
         }
