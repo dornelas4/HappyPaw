@@ -30,6 +30,8 @@ public class FeedTimer {
      * @return elapsed time in milliseconds; 0 if this timer is not running.
      */
     public long elapsedTime() {
+        long curr = System.currentTimeMillis();
+        long elapsedTime = endTime - System.currentTimeMillis();
         return isRunning() ? endTime - System.currentTimeMillis() : 0;
     }
 }

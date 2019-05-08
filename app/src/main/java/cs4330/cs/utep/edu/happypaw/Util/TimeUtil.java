@@ -8,13 +8,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class TimeUtil {
     private final static String strDateFormat = "yyyy-MM-dd hh:mm:ss";
     private final static DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
 
     public static String formatElapsedTime(long elapsedTime) {
-        int seconds = (int) (elapsedTime / 1000) % 60;
+
+        int seconds = (int) (elapsedTime / 1000) % 60 ;
         int minutes = (int) ((elapsedTime / (1000*60)) % 60);
         int hours   = (int) ((elapsedTime / (1000*60*60)) % 24);
         return String.format("%dh:%02dm:%02ds", hours, minutes, seconds);

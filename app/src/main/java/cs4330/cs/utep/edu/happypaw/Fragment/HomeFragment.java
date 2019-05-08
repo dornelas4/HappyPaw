@@ -41,20 +41,22 @@ public class HomeFragment extends Fragment {
     final static float ARC_BOTTOM_TEXT_SIZE = 35.0f;
     final static String TAG = "HomeFragment";
 
-    SchedulerClient schduler;
+    SchedulerClient scheduler;
     ArcProgress foodContainer;
     Timer timerThread;
     FeedTimer timer;
     View view;
+    int mealPday = 0;
+    int currMeal = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        schduler = new SchedulerClient();
+        scheduler = new SchedulerClient();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         timer = new FeedTimer();
         setUpProgressBar(view);
-
+//        setUpNextFeedingTextView(view);
         Button setTimerBtn =  view.findViewById(R.id.btn_set_timer);
         Button feedBtn = view.findViewById(R.id.btn_feed_now);
 
@@ -92,7 +94,7 @@ public class HomeFragment extends Fragment {
         foodContainer = view.findViewById(R.id.arc_progress);
         foodContainer.setBottomTextSize(ARC_BOTTOM_TEXT_SIZE);
         Activity ctx = getActivity();
-        schduler.getProgress(new SchedulerClient.SchedulerListener<FoodContainer>() {
+        scheduler.getProgress(new SchedulerClient.SchedulerListener<FoodContainer>() {
             @Override
             public void onSuccess(FoodContainer result) {
                 ctx.runOnUiThread(() -> {
@@ -109,16 +111,24 @@ public class HomeFragment extends Fragment {
     }
 
     /**
+     *
      * Sets timer with the next feeding schedule returned
      * from a server call
      *
      * @param view - HomeFragment view to populate timer
      */
     public void setUpNextFeedingTextView(View view){
-
-        schduler.getSchedule(new SchedulerClient.SchedulerListener<Schedule>() {
+        TextView mealPerDay = view.findViewById(R.id.meal_per_day_text);
+        Activity actContext = getActivity();
+        scheduler.getSchedule(new SchedulerClient.SchedulerListener<Schedule>() {
             @Override
             public void onSuccess(Schedule result) {
+
+                actContext.runOnUiThread(()->{
+                    mealPday = result.getMealPerDay();
+                    mealPerDay.setText(currMeal+"/"+mealPday);
+                });
+
                 startTimer(result.getNextFeedTime());
             }
 
@@ -128,7 +138,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    static boolean flag = false;
     /**
      * Starts a count down timer that shows how long till the next
      * feeding time
@@ -137,6 +147,7 @@ public class HomeFragment extends Fragment {
      */
     public void startTimer(long time){
         TextView nextFeeding = getView().findViewById(R.id.text_view_next_feeding);
+        TextView mealPerDay = view.findViewById(R.id.meal_per_day_text);
         timerThread =  new Timer();
         timer.start(time);
         Activity ctxAct = getActivity();
@@ -147,7 +158,11 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void run() {
                         if (timer.elapsedTime() == 0){
+                            if (!flag) {
+                                mealPerDay.setText((currMeal + 1) + "/" + mealPday);
+                            }
                             setUpNextFeedingTextView(getView());
+                            flag = true;
                             return;
                         }
                         nextFeeding.setText( TimeUtil.formatElapsedTime(timer.elapsedTime()));
@@ -170,7 +185,7 @@ public class HomeFragment extends Fragment {
         Schedule schedule = new Schedule(mealPerDay, firstMealHour, firstMealMinute,
                                          intervalHour, intervalMinute);
         String json = schedule.toJson();
-        schduler.setSchedule(json, new SchedulerClient.SchedulerListener<String>() {
+        scheduler.setSchedule(json, new SchedulerClient.SchedulerListener<String>() {
             @Override
             public void onSuccess(String result) {
                 showToastOnUiThread(result);

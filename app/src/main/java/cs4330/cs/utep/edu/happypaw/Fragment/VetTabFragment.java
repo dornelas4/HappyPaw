@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.Adapter.VetVisitAdapter;
+import cs4330.cs.utep.edu.happypaw.Helper.VetVisitTouchHelper;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.Helper.TripTouchHelper;
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
@@ -44,6 +46,10 @@ public class VetTabFragment extends Fragment implements TripTouchHelper.Recycler
         RecyclerView rcVet = root.findViewById(R.id.recycler_vet);
         rcVet.setLayoutManager(new LinearLayoutManager(ctx));
         rcVet.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new VetVisitTouchHelper(this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rcVet);
+
 
         setHasOptionsMenu(true);
         return root;

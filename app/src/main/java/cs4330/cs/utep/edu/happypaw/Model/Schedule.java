@@ -36,6 +36,8 @@ public class Schedule {
         return nextFeedTime;
     }
 
+    public int getMealPerDay(){ return mealPerDay; }
+
     public String toJson() {
         Gson gson = new Gson();
         return gson.toJson(this);

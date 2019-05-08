@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import cs4330.cs.utep.edu.happypaw.Adapter.TripAdapter;
+import cs4330.cs.utep.edu.happypaw.Adapter.VetVisitAdapter;
 import cs4330.cs.utep.edu.happypaw.Adapter.VetVisitAdapter;
 
 public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
@@ -37,7 +37,7 @@ public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
-            final View foregroundView = ((TripAdapter.ViewHolder) viewHolder).viewForeground;
+            final View foregroundView = ((VetVisitAdapter.ViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }
@@ -49,7 +49,7 @@ public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
     public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                 int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((TripAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((VetVisitAdapter.ViewHolder) viewHolder).viewForeground;
         getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);
     }
@@ -58,7 +58,7 @@ public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView,
                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((TripAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((VetVisitAdapter.ViewHolder) viewHolder).viewForeground;
 
         getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);
@@ -70,7 +70,7 @@ public class VetVisitTouchHelper  extends ItemTouchHelper.SimpleCallback {
      */
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        final View foregroundView = ((TripAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((VetVisitAdapter.ViewHolder) viewHolder).viewForeground;
         getDefaultUIUtil().clearView(foregroundView);
     }
 

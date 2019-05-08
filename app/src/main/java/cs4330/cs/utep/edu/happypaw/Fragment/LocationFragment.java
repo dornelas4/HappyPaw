@@ -92,8 +92,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        pnf = new PushNotificationHandler(getActivity().getApplicationContext());
-        pnf.showNotifications("Map ready","Your location is no longer being tracked");
+        pnf = new PushNotificationHandler(getActivity());
+//        pnf.showNotifications("Map ready","Your location is no longer being tracked");
         tripControl.bringToFront();
         setControlButton();
         this.googleMap = googleMap;

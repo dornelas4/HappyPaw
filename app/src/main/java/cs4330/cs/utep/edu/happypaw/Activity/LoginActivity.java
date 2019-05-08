@@ -36,7 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences settings = getApplication().getSharedPreferences("token", Context.MODE_PRIVATE);
+        settings.edit().clear().commit();
         checkForToken();
+
+
 
         client = new SchedulerClient();
 

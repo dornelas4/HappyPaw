@@ -86,7 +86,7 @@ public class SchedulerClient {
     private static final String REGISTER_TOKEN_API_PATH = "/token";
 
     /** Rest API url **/
-    private static final String URL = "http://172.19.157.245:5000/api";
+    private static final String URL = "http://172.19.155.113:5000/api";
 
     /** Google library to parse JSON  **/
     private static final Gson g = new Gson();

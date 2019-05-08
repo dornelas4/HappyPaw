@@ -19,7 +19,7 @@ public class VetVisitDBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "vetDB";
     private static final String VET_VISIT_TABLE = "vetVisitTable";
 
-    private static final String KEY_ID = "_id";
+    public static final String KEY_ID = "_id";
     public static final String KEY_DOCTOR = "doctor";
     public static final String KEY_REASON = "reason";
     public static final String KEY_DATE = "date";

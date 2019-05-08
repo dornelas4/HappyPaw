@@ -43,6 +43,7 @@ public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.V
 
     public VetVisitAdapter(Context context) {
         super(context, null);
+        pos2id = new ArrayList<Integer>();
         vetVisitDBHelper = new VetVisitDBHelper(context);
         changeCursor(vetVisitDBHelper.allItems());
     }
@@ -69,6 +70,7 @@ public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+        int id = cursor.getInt(cursor.getColumnIndex(VetVisitDBHelper.KEY_ID));
         String reason = cursor.getString(cursor.getColumnIndex(VetVisitDBHelper.KEY_REASON));
         String doctor = cursor.getString(cursor.getColumnIndex(VetVisitDBHelper.KEY_DOCTOR));
         String date = cursor.getString(cursor.getColumnIndex(VetVisitDBHelper.KEY_DATE));
@@ -76,6 +78,8 @@ public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.V
         viewHolder.reasonTextView.setText(reason);
         viewHolder.doctorPriceTextView.setText(doctor);
         viewHolder.datePriceTextView.setText(date);
+
+        pos2id.add(id);
     }
 
 
