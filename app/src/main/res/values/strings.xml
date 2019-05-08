@@ -98,8 +98,10 @@
     <string name="text_view_timer_default">--:--:--</string>
     <string name="PetVisitListLabel">Recent Vet Visits</string>
     <string name="title_activity_login">LoginActivity</string>
+
     <string name="doctor_s_name">Doctor\'s Name</string>
     <string name="placeholder_name">name</string>
     <string name="reason">Reason</string>
+    <string name="title_activity_trip_summary">Map</string>
 
 </resources>
