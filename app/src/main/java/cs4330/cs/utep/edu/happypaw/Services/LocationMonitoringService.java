@@ -13,14 +13,14 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import cs4330.cs.utep.edu.happypaw.Helpers.PushNotificationHandler;
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.Model.Trip;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helpers.TripDBHelper;
 
 public class LocationMonitoringService extends Service implements GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -74,6 +74,7 @@ public class LocationMonitoringService extends Service implements GoogleApiClien
         currTrip = new Trip(tripID);
         currentTrip = dbHandler.createTrip(currTrip);
         Log.d(TAG,"COnnected to google api");
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package cs4330.cs.utep.edu.happypaw.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,13 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cs4330.cs.utep.edu.happypaw.Activity.HomeActivity;
 import cs4330.cs.utep.edu.happypaw.Activity.TripSummaryActivity;
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
-import cs4330.cs.utep.edu.happypaw.VetVisitDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helpers.TripDBHelper;
 
 public class TripAdapter extends CursorRecyclerViewAdapter<TripAdapter.ViewHolder> {
 

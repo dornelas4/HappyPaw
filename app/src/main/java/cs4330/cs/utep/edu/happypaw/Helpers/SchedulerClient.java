@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Helpers;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;

@@ -1,4 +1,4 @@
-package cs4330.cs.utep.edu.happypaw;
+package cs4330.cs.utep.edu.happypaw.Helpers;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;

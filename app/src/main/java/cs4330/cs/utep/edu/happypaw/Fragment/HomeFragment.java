@@ -3,7 +3,6 @@ package cs4330.cs.utep.edu.happypaw.Fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -23,12 +22,11 @@ import com.github.lzyzsd.circleprogress.ArcProgress;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cs4330.cs.utep.edu.happypaw.LoginActivity;
 import cs4330.cs.utep.edu.happypaw.Model.FeedTimer;
 import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
 import cs4330.cs.utep.edu.happypaw.R;
-import cs4330.cs.utep.edu.happypaw.SchedulerClient;
+import cs4330.cs.utep.edu.happypaw.Helpers.SchedulerClient;
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 

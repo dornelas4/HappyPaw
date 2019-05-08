@@ -34,10 +34,11 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 
 import java.util.ArrayList;
 
+import cs4330.cs.utep.edu.happypaw.Helpers.PushNotificationHandler;
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.R;
 import cs4330.cs.utep.edu.happypaw.Services.LocationMonitoringService;
-import cs4330.cs.utep.edu.happypaw.TripDBHelper;
+import cs4330.cs.utep.edu.happypaw.Helpers.TripDBHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -54,6 +55,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static final String ACTION_FROM_NOTIFICATION = "isFromNotification";
     private String action;
     private ImageView tripControl;
+    PushNotificationHandler pnf;
 
 
     @Override
@@ -87,6 +89,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        pnf = new PushNotificationHandler(getActivity().getApplicationContext());
+        pnf.showNotifications("Map ready","Your location is no longer being tracked");
         tripControl.bringToFront();
         setControlButton();
         this.googleMap = googleMap;
@@ -142,8 +147,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public void step3(){
-            Intent intent = new Intent(getActivity(),LocationMonitoringService.class);
-            getActivity().startService(intent);
+        Intent intent = new Intent(getActivity(),LocationMonitoringService.class);
+        getActivity().startService(intent);
+
+        pnf.showNotifications("Location Service Started","Happy Paw is now tracking your location");
     }
 
     /**
@@ -152,7 +159,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     public void stopUpdates() {
         getActivity().stopService(new Intent(getActivity(), LocationMonitoringService.class));
-
+        pnf.showNotifications("Location Service Stopped","Your location is no longer being tracked");
     }
 
     public void setStartingLocation() {
