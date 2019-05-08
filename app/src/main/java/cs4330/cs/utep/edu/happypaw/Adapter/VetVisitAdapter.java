@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Helper.VetVisitDBHelper;
+
 
 public class VetVisitAdapter extends CursorRecyclerViewAdapter<VetVisitAdapter.ViewHolder>{
     ArrayList<Integer> pos2id;

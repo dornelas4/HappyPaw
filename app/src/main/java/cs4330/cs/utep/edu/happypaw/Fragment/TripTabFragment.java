@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 
 import cs4330.cs.utep.edu.happypaw.Adapter.TripAdapter;
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Helper.TripTouchHelper;
+
 
 
 public class TripTabFragment extends Fragment  implements TripTouchHelper.RecyclerItemTouchHelperListener {

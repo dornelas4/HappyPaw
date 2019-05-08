@@ -27,7 +27,9 @@ import cs4330.cs.utep.edu.happypaw.Model.FeedTimer;
 import cs4330.cs.utep.edu.happypaw.Model.FoodContainer;
 import cs4330.cs.utep.edu.happypaw.Model.Schedule;
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Helper.SchedulerClient;
+
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 
@@ -137,11 +139,11 @@ public class HomeFragment extends Fragment {
         TextView nextFeeding = getView().findViewById(R.id.text_view_next_feeding);
         timerThread =  new Timer();
         timer.start(time);
-
+        Activity ctxAct = getActivity();
         timerThread.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(new TimerTask() {
+                ctxAct.runOnUiThread(new TimerTask() {
                     @Override
                     public void run() {
                         if (timer.elapsedTime() == 0){
@@ -255,8 +257,8 @@ public class HomeFragment extends Fragment {
                                 intervalMinute = interval.getMinute();
                             }
 
-                            ctx.setSchedule(1, 23, 0,
-                                    0, 30);
+                            ctx.setSchedule(mealPerDay, firstMealHour, firstMealMinute,
+                                    intervalHour, intervalMinute);
 
                         }
                     })

@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import cs4330.cs.utep.edu.happypaw.Activity.HomeActivity;
 import cs4330.cs.utep.edu.happypaw.Activity.TripSummaryActivity;
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Helper.TripDBHelper;
+
 
 public class TripAdapter extends CursorRecyclerViewAdapter<TripAdapter.ViewHolder> {
 

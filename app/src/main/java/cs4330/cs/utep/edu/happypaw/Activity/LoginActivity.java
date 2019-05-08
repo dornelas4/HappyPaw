@@ -1,10 +1,12 @@
 package cs4330.cs.utep.edu.happypaw.Activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.Date;
 import cs4330.cs.utep.edu.happypaw.Helper.SchedulerClient;
 import cs4330.cs.utep.edu.happypaw.Model.Token;
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Util.TimeUtil;
 
 
@@ -66,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
+
 
         new android.os.Handler().postDelayed(
             () -> {
@@ -123,15 +127,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess(String authorization) {
-        loginButton.setEnabled(true);
-        saveToken(authorization);
+        runOnUiThread( () -> {
+                loginButton.setEnabled(true);
+                saveToken(authorization);
+            }
+        );
+
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-        loginButton.setEnabled(true);
+        runOnUiThread( () -> {
+            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+            loginButton.setEnabled(true);
+                }
+        );
+
     }
 
     public boolean validate() {

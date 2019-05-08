@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.Model.Trip;
 import cs4330.cs.utep.edu.happypaw.R;
+
 import cs4330.cs.utep.edu.happypaw.Helper.TripDBHelper;
+
 
 public class TripSummaryActivity extends FragmentActivity implements OnMapReadyCallback {
 

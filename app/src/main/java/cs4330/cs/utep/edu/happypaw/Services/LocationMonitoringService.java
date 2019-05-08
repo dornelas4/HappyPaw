@@ -17,8 +17,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import cs4330.cs.utep.edu.happypaw.Helper.PushNotificationHandler;
 import cs4330.cs.utep.edu.happypaw.Model.CustomLocation;
 import cs4330.cs.utep.edu.happypaw.Model.Trip;
+
 import cs4330.cs.utep.edu.happypaw.Helper.TripDBHelper;
 
 public class LocationMonitoringService extends Service implements GoogleApiClient.ConnectionCallbacks,
@@ -72,7 +74,8 @@ public class LocationMonitoringService extends Service implements GoogleApiClien
         tripID = dbHandler.getUniqueID();
         currTrip = new Trip(tripID);
         currentTrip = dbHandler.createTrip(currTrip);
-        Log.d(TAG,"COnnected to google api");
+        Log.d(TAG,"Connected to google api");
+
     }
 
     @Override
