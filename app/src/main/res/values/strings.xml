@@ -75,6 +75,12 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="tabs">
+        <item>Trips</item>
+        <item>Vet Visits</item>
+    </string-array>
+
+
     <string-array name="multi_select_list_preference_default_value" />
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
@@ -92,6 +98,8 @@
     <string name="text_view_timer_default">--:--:--</string>
     <string name="PetVisitListLabel">Recent Vet Visits</string>
     <string name="title_activity_login">LoginActivity</string>
-    <!--<string name="label_meal_per_day">Meals Per Day</string>-->
-    <!--<string name="label_meal_per_day">Meals Per Day</string>-->
+    <string name="doctor_s_name">Doctor\'s Name</string>
+    <string name="placeholder_name">name</string>
+    <string name="reason">Reason</string>
+
 </resources>

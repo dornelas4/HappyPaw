@@ -155,46 +155,12 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="390dp"
+            android:layout_height="200dp"
             android:layout_marginBottom="40dp"
             android:background="#f5f5f5" />
 
 
     </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:gravity="center"-->
-        <!--android:background="#ffffff"-->
-        <!--android:paddingBottom="10dp"-->
-        <!--android:paddingTop="10dp"-->
-        <!--android:layout_alignParentBottom="true">-->
-
-        <!--<customfonts.MyTextView_Roboto_Regular-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="15sp"-->
-            <!--android:text="loading"-->
-            <!--android:textColor="#b7c4cb"/>-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="23dp"-->
-            <!--android:layout_height="23dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:src="@drawable/loading"-->
-            <!--android:layout_marginRight="10dp"/>-->
-
-
-        <!--<customfonts.MyTextView_Roboto_Regular-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="15sp"-->
-            <!--android:text="content"-->
-            <!--android:textColor="#b7c4cb"/>-->
-
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>

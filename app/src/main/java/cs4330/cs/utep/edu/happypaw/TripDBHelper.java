@@ -60,6 +60,7 @@ public class TripDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_LOCATIONS = "CREATE TABLE "
             + TABLE_LOCATIONS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + COLUMN_LATITUDE
             + " DOUBLE," + COLUMN_LONGITUDE + " DOUBLE"  + ")";
+
     //TRIP_LOCATION table create statement
     private static final String CREATE_TABLE_TRIP_LOCATIONS = "CREATE TABLE "
             + TABLE_TRIP_LOCATIONS + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
@@ -251,11 +252,7 @@ public class TripDBHelper extends SQLiteOpenHelper {
     // Getting all trips
     public ArrayList<Trip> getAllTrips() {
         ArrayList<Trip> trips = new ArrayList<Trip>();
-        String selectQuery = "SELECT * FROM " + TABLE_TRIPS;
-        Log.e(LOG, selectQuery);
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
+        Cursor c =getAllTeripsCursor();
 
         if (c.moveToFirst()) {
             do {
@@ -268,6 +265,12 @@ public class TripDBHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return trips;
+    }
+
+    public Cursor getAllTeripsCursor(){
+        String selectQuery = "SELECT * FROM " + TABLE_TRIPS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery(selectQuery, null);
     }
 
     //Updating trips

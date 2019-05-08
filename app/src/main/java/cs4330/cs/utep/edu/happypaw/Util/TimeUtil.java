@@ -25,6 +25,10 @@ public class TimeUtil {
         return dateFormat.format(date);
     }
 
+    public static String date2Str(Date date){
+        return dateFormat.format(date);
+    }
+
     public static Date currDate(){
         return Calendar.getInstance().getTime();
     }
